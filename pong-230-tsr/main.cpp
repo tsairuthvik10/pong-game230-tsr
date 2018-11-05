@@ -293,7 +293,7 @@ void move_ball(float dt, Ball &b) {
 		if (++score_one == '5') {
 			pause = true;
 			cheer.play();
-			playAgainMessage.setString("You won!\nPress space to continue\n the winning streak!");
+			playAgainMessage.setString("You won!\nPress space to continue\nthe winning streak!");
 		}
 		s1.setString(score_one);
 		b.reset();
@@ -303,7 +303,7 @@ void move_ball(float dt, Ball &b) {
 		if (++score_two == '5') {
 			pause = true;
 			boo.play();
-			playAgainMessage.setString("You lost!\nPress space to get\n revenge from the Freak!");
+			playAgainMessage.setString("You lost!\nPress space to get\nrevenge from the Freak!");
 		}
 		s2.setString(score_two);
 		b.reset();
