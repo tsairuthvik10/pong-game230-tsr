@@ -147,30 +147,28 @@
   <ItemGroup>
     <ClCompile Include="Ball.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="Menu.cpp" />
     <ClCompile Include="Paddle.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <Media Include="resources\boo.wav" />
-    <Media Include="resources\cheer.wav" />
-    <Media Include="resources\goal.wav" />
-    <Media Include="resources\puckhit.wav" />
-  </ItemGroup>
-  <ItemGroup>
-    <Font Include="arial.ttf" />
-    <Font Include="resources\sansation.ttf" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="resources\startsong.ogg" />
-  </ItemGroup>
-  <ItemGroup>
-    <Image Include="table.png" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Ball.h" />
     <ClInclude Include="GameObject.h" />
-    <ClInclude Include="Menu.h" />
     <ClInclude Include="Paddle.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Font Include="impact.ttf" />
+  </ItemGroup>
+  <ItemGroup>
+    <Media Include="boo.wav" />
+    <Media Include="cheer.wav" />
+    <Media Include="goal.wav" />
+    <Media Include="puckhit.wav" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="puck.png" />
+    <Image Include="table.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="startsong.ogg" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

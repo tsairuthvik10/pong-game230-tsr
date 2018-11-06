@@ -46,11 +46,12 @@ void move_ball(float dt, Ball &b);
 void checkBarrierCollision(Ball &b);
 float dist(Vector2f obj1, Vector2f obj2);
 
+
 bool pause = false;
 RenderWindow window;
 const double PI = 3.141592653589793238463;
-SoundBuffer buf1, buf2, scorebuf, cheerbuf, boobuf, gamepointbuf;
-Sound ping1, ping2, score, cheer, boo, gamepoint;
+SoundBuffer buf1, buf2, scorebuf, cheerbuf, boobuf;
+Sound ping1, ping2, score, cheer, boo;
 Music start;
 char score_one;
 char score_two;
@@ -61,6 +62,7 @@ Ball b;
 Paddle p1(true);
 Paddle p2(false);
 RectangleShape background;
+RectangleShape bgGoal;
 Texture backTex;
 Barrier barrier;
 
@@ -72,7 +74,7 @@ int main()
 
 	srand(time(NULL));
 	window.create(VideoMode(800, 600), "AIR PONG HOCKEY");
-	font.loadFromFile("../Assets/impact.ttf");
+	font.loadFromFile("impact.ttf");
 
 	score_one = '0';
 	score_two = '0';
@@ -95,25 +97,24 @@ int main()
 	playAgainMessage.setPosition(0, 0);
 
 	//create sounds and music
-	buf1.loadFromFile("resources/puckhit.wav");
+	buf1.loadFromFile("puckhit.wav");
 	ping1.setBuffer(buf1);
 
-	buf2.loadFromFile("resources/puckhit.wav");
+	buf2.loadFromFile("puckhit.wav");
 	ping2.setBuffer(buf2);
 
-	scorebuf.loadFromFile("resources/goal.wav");
+	scorebuf.loadFromFile("goal.wav");
 	score.setBuffer(scorebuf);
 
-	cheerbuf.loadFromFile("resources/cheer.wav");
+	cheerbuf.loadFromFile("cheer.wav");
 	cheer.setBuffer(cheerbuf);
 
-	boobuf.loadFromFile("resources/boo.wav");
+	boobuf.loadFromFile("boo.wav");
 	boo.setBuffer(boobuf);
 
-	gamepointbuf.loadFromFile("resources/gamepoint.wav");
-	gamepoint.setBuffer(gamepointbuf);
+	
 
-	if (!start.openFromFile("resources/startsong.ogg"))
+	if (!start.openFromFile("startsong.ogg"))
 		return -1; // error
 	start.play();
 	start.setLoop(true);
@@ -123,6 +124,10 @@ int main()
 	background.setSize(Vector2f(800, 600));
 	backTex.loadFromFile("table.png");
 	background.setTexture(&backTex);
+
+	bgGoal.setSize(Vector2f(800, 600));
+	bgGoal.setFillColor(Color::Transparent);
+	
 
 	barr->push_back(b);
 
@@ -197,11 +202,13 @@ void update_state(float dt)
 		}
 	}
 
-	//if (Keyboard::isKeyPressed(Keyboard::Space) && sound.getStatus() != SoundSource::Playing)
+
 
 
 }
 void move_ball(float dt, Ball &b) {
+
+	
 	Vector2f bpos = b.getPosition();
 	const Vector2f bsize = b.getSize();
 	const Vector2f ppos = p1.getPosition();
@@ -213,12 +220,15 @@ void move_ball(float dt, Ball &b) {
 		b.setPosition(bpos);
 		b.reverseY();
 		ping2.play();
+	
 	}
 	else if (bpos.y < 0) {
 		bpos.y = 0;
 		b.setPosition(bpos);
 		b.reverseY();
 		ping2.play();
+		
+		
 	}
 	if (bpos.x < ppos.x + psize.x &&
 		bpos.x > ppos.x + psize.x / 2 &&
@@ -265,7 +275,7 @@ void move_ball(float dt, Ball &b) {
 		Vector2f vel = b.getVelocity();
 		float midpoint = ppos2.y + psize2.y / 2;
 		float distance = dist(Vector2f(ppos2.x, midpoint), Vector2f(bpos.x + bsize.x, bpos.y + bsize.y / 2));
-		//int angle = (int)distance % 300;
+		
 		if (vel.y > 0) {
 			if (bpos.y > midpoint) {
 				vel.y = -distance * 2;
@@ -345,6 +355,7 @@ void render_frame()
 	if (!pause) {
 		window.draw(s1);
 		window.draw(s2);
+		window.draw(bgGoal);
 		p1.render(window);
 		p2.render(window);
 		barrier.render(window);
@@ -360,3 +371,4 @@ void render_frame()
 float dist(Vector2f obj1, Vector2f obj2) {
 	return 50 + sqrt((obj2.x - obj1.x) * (obj2.x - obj1.x) + (obj2.y - obj1.y) * (obj2.y - obj1.y));
 }
+
